@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Shared\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -12,10 +16,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
+    use UuidTrait;
     use HasFactory;
-    use HasProfilePhoto;
     use Notifiable;
+    use SoftDeletes;
+    use HasApiTokens;
+    use HasProfilePhoto;
     use TwoFactorAuthenticatable;
 
     /**
@@ -24,10 +30,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'theme'
     ];
+
+    protected string $model = User::class;
+
+    protected $table = 'users';
 
     /**
      * The attributes that should be hidden for serialization.
