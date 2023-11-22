@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\src\Domain\Blogging\Models;
 
-use App\Models\Concerns\HasSlug;
+use App\src\Shared\Concerns\HasSlug;
+use App\src\Shared\Models\User;
 use App\Shared\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +35,11 @@ class Post extends Model
         'user_id',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'id';
+    }
+
     /**
      * @var string[]
      */
@@ -46,6 +52,9 @@ class Post extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->BelongsTo(User::class, 'user_id');
+        return $this->BelongsTo(
+            User::class,
+            'user_id'
+        );
     }
 }
