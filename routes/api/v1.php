@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('posts')->as('posts:')->group(function (){
+    Route::get('/', [\App\Http\Controllers\Api\V1\Posts\IndexController::class, 'index'])->name('index'); //route('api:posts:index')
+});
