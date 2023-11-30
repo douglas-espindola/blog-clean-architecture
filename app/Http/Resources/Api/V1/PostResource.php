@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -22,11 +23,13 @@ class PostResource extends JsonResource
                 'body' => $this->body,
                 'published' => $this->published,
             ],
-            'relationships' =>[],
-            'links' => [
-                'self' => route('api:v1:posts:index'),
+            'relationships' =>[
+                'user' => new UserResource($this->whenLoaded('user')),
             ],
-
+            'links' => [
+                'self' => route('api:v1:posts:show', $this->id),
+                'parent' => route('api:v1:posts:index'),
+            ],
         ];
     }
 }
