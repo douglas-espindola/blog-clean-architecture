@@ -1,14 +1,16 @@
 <?php
 
-namespace App\src\Domain\Blogging\Models;
+namespace Domain\Blogging\Models;
 
-use App\src\Shared\Concerns\HasSlug;
-use App\src\Shared\Models\User;
 use App\Shared\UuidTrait;
+use Domain\Blogging\Models\Builders\PostBuilder;
+use Domain\Shared\Concerns\HasSlug;
+use Domain\Shared\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Post extends Model
 {
@@ -56,5 +58,14 @@ class Post extends Model
             User::class,
             'user_id'
         );
+    }
+
+    /**
+     * @param $query
+     * @return PostBuilder
+     */
+    public function newEloquentBuilder($query): PostBuilder
+    {
+        return new PostBuilder($query);
     }
 }
