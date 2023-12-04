@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Posts;
+namespace Domain\Blogging\Jobs;
 
 use Domain\Blogging\Models\Post;
 use Domain\Blogging\ValueObjects\PostValueObject;
